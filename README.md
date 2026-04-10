@@ -101,4 +101,4 @@ iOS will prompt for the corresponding permissions on first launch. Bluetooth and
 
 ## License
 
-No license file is included in this repository.
+his repository (TJJupiter-demo-ios) is licensed under the MIT License.
