@@ -11,9 +11,8 @@ Sample iOS app demonstrating the **TJJupiterSDK** for indoor positioning and nav
 - Start / stop the Jupiter service from a single screen
 - Live display of service status, building name, level, X/Y coordinates, and heading
 - TJLabs authentication via `TJJupiterAuth.shared.auth(...)`
-- Simulation mode driven by bundled JSON fixtures (`Rfd1.json`, `Uvd1.json`, `Event1.json`)
-- Configured for `UserMode.MODE_VEHICLE` and sector `20` out of the box
 - Implements `JupiterServiceManagerDelegate` for result, report, and in/out-state callbacks
+- Enable mocking mode to get result out for the service area (Configured for `UserMode.MODE_VEHICLE` and sector `20`)
 
 ## Requirements
 
