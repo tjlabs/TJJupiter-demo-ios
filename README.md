@@ -20,7 +20,6 @@ Sample iOS app demonstrating the **TJJupiterSDK** for indoor positioning and nav
 - iOS 15.0+ device or simulator (iPhone only)
 - Swift 5.0
 - CocoaPods 1.16+
-- A local checkout of **TJJupiterSDK 2.0.0** (the Podfile consumes it via a local `:path =>`)
 
 ## Project Structure
 
