@@ -226,7 +226,7 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
     }
     
     func doAuth() {
-        TJJupiterAuth.shared.auth(accessKey: "AK_-xVNF3MeRzQMhBIVLU5GQ", secretAccessKey: "SK1nVeBlJldifxC7z8vD8ZeercMgrSqmzNzz5RItSrDaM", completion: { [self] statusCode, success in
+        TJJupiterAuth.shared.auth(accessKey: "", secretAccessKey: "", completion: { [self] statusCode, success in
             let successRange = 200..<300
             if successRange.contains(statusCode) {
                 self.startButton.isUserInteractionEnabled = true
