@@ -2,15 +2,15 @@ PODS:
   - TJJupiterSDK (2.0.0)
 
 DEPENDENCIES:
-  - TJJupiterSDK (from `/Users/leo/SwiftProjects/TJJupiterSDK`)
+  - TJJupiterSDK (= 2.0.0)
 
-EXTERNAL SOURCES:
-  TJJupiterSDK:
-    :path: "/Users/leo/SwiftProjects/TJJupiterSDK"
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - TJJupiterSDK
 
 SPEC CHECKSUMS:
-  TJJupiterSDK: e829865f3913acb68808147806d904262ad9485f
+  TJJupiterSDK: ceca56a7a4b7e4c2f6f966d1b63baf9b3f791afb
 
-PODFILE CHECKSUM: 66f50bec57c2988dfb6274402b4bf8b032cf4c60
+PODFILE CHECKSUM: 26bf41cee698ed0abaa1e63b84130ace3fcff458
 
 COCOAPODS: 1.16.2

@@ -243,17 +243,12 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
     func startService() {
         let sectorId = 20
         let mode: UserMode = .MODE_VEHICLE
-//        serviceManager?.setMockingMode()
-        serviceManager?.setSimulationMode(flag: true, rfdFileName: "Rfd1.json", uvdFileName: "Uvd1.json", eventFileName: "Event1.json")
+        serviceManager?.setMockingMode()
         serviceManager?.startService(sectorId: sectorId, mode: mode, debugOption: true)
     }
     
     func stopService(completion: @escaping (Bool, String) -> Void) {
         serviceManager?.stopService(completion: completion)
-    }
-    
-    func mockingMode() {
-        serviceManager?.setMockingMode()
     }
     
     @objc func startServiceTapped() {
