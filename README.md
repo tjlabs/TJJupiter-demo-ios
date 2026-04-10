@@ -120,9 +120,3 @@ manager.setMockingMode()
 4. Tap **시작** (Start) to launch the Jupiter service. The status, building, level, X/Y, and heading labels will update as results arrive.
 5. Tap **중지** (Stop) to halt the service.
 
-
----
-
-## License
-
-his repository (TJJupiter-demo-ios) is licensed under the MIT License.
