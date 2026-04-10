@@ -1,0 +1,4 @@
+${PODS_XCFRAMEWORKS_BUILD_DIR}/TJJupiterSDK/TJLabsAuth.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/TJJupiterSDK/TJLabsCommon.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/TJJupiterSDK/TJLabsJupiter.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/TJJupiterSDK/TJLabsResource.framework

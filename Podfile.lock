@@ -1,0 +1,16 @@
+PODS:
+  - TJJupiterSDK (2.0.0)
+
+DEPENDENCIES:
+  - TJJupiterSDK (from `/Users/leo/SwiftProjects/TJJupiterSDK`)
+
+EXTERNAL SOURCES:
+  TJJupiterSDK:
+    :path: "/Users/leo/SwiftProjects/TJJupiterSDK"
+
+SPEC CHECKSUMS:
+  TJJupiterSDK: e829865f3913acb68808147806d904262ad9485f
+
+PODFILE CHECKSUM: 66f50bec57c2988dfb6274402b4bf8b032cf4c60
+
+COCOAPODS: 1.16.2
