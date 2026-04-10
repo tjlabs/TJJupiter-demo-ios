@@ -71,7 +71,7 @@ Sample iOS app demonstrating the **TJJupiterSDK** for indoor positioning and nav
 ## Quick Guide
 ### 1. Authenticate
 - **Auth keys.** `MainViewController.doAuth()` (`TJJupiterSample/MainViewController.swift:228`) calls `TJJupiterAuth.shared.auth(accessKey:secretAccessKey:)` with sample credentials. Replace these with your own access key / secret access key issued by TJLabs before shipping anything.
-- 
+
 ```swift
 TJJupiterAuth.shared.auth(
     accessKey: "YOUR_ACCESS_KEY",
@@ -85,6 +85,7 @@ TJJupiterAuth.shared.auth(
 - **Sector & user mode.** `startService()` (`TJJupiterSample/MainViewController.swift:243`) hard-codes `sectorId = 20` and `UserMode.MODE_VEHICLE`. Change these to match the venue and use case you are testing.
 - Sector IDs are assigned and managed by TJLabs.
 - For production usage, use the sector ID provided by TJLabs.
+
 ```swift
 manager.startService(
     region: JupiterRegion.KOREA.rawValue,
