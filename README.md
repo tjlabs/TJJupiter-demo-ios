@@ -76,7 +76,7 @@ TJJupiter-demo-ios/
 
 - **Auth keys.** `MainViewController.doAuth()` (`TJJupiterSample/MainViewController.swift:228`) calls `TJJupiterAuth.shared.auth(accessKey:secretAccessKey:)` with sample credentials. Replace these with your own access key / secret access key issued by TJLabs before shipping anything.
 - **Sector & user mode.** `startService()` (`TJJupiterSample/MainViewController.swift:243`) hard-codes `sectorId = 20` and `UserMode.MODE_VEHICLE`. Change these to match the venue and use case you are testing.
-- **Simulation mode.** The same method enables simulation by default via `setSimulationMode(flag: true, rfdFileName:"Rfd1.json", uvdFileName:"Uvd1.json", eventFileName:"Event1.json")`. Disable it (or switch to `setMockingMode()`) when you want to drive the SDK from real device sensors.
+- **Mocking mode.** It inables mocking mode.
 
 ## Run
 
