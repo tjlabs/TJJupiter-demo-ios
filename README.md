@@ -41,30 +41,26 @@ TJJupiter-demo-ios/
 
 ## Setup
 
-1. Clone the repository.
 
-   ```bash
-   git clone https://github.com/<your-org>/TJJupiter-demo-ios.git
-   cd TJJupiter-demo-ios
-   ```
-
-2. Obtain a local copy of `TJJupiterSDK` (v2.0.0) from TJLabs.
-
-3. Open `Podfile` and update line 6 so the `:path` argument points to your local SDK checkout:
+1. Open `Podfile` and update line 6 so the `:path` argument points to your local SDK checkout:
 
    ```ruby
-   pod 'TJJupiterSDK', :path => '<YOUR_LOCAL_PATH>/TJJupiterSDK'
+   pod 'TJJupiterSDK', '2.0.0'
    ```
 
-   The path currently committed in the repo is a developer-specific absolute path and will not resolve on your machine.
+   if you cannot find pod, type this line above.
+   
+   ```ruby
+   source '<https://github.com/CocoaPods/Specs.git>'
+   ```
 
-4. Install pods.
+3. Install pods.
 
    ```bash
    pod install
    ```
 
-5. Open the workspace (not the `.xcodeproj`):
+4. Open the workspace (not the `.xcodeproj`):
 
    ```bash
    open TJJupiterSample.xcworkspace
