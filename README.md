@@ -83,6 +83,8 @@ TJJupiterAuth.shared.auth(
 
 ### 2. Start Service
 - **Sector & user mode.** `startService()` (`TJJupiterSample/MainViewController.swift:243`) hard-codes `sectorId = 20` and `UserMode.MODE_VEHICLE`. Change these to match the venue and use case you are testing.
+- Sector IDs are assigned and managed by TJLabs.
+- For production usage, use the sector ID provided by TJLabs.
 ```swift
 manager.startService(
     region: JupiterRegion.KOREA.rawValue,
@@ -103,12 +105,11 @@ manager.stopService { success, message in
 ### Mocking Mode
 - Since Jupiter performs positioning based on TJLABS' BLE beacons, it cannot receive indoor location data outside of the actual service area.
 - If you use the mocking mode below, you can receive a randomly defined JupiterResult even outside the service area.
-- Use `sectorId = 20` and `UserMode.MODE_VEHICLE` in mocking mode.
-- 
+- Use `sectorId = 20` and `UserMode.MODE_VEHICLE` in mocking mode, which corresponds to Songdo Convensia
+
 ```swift
 manager.setMockingMode()
 ```
-
 
 ---
 
