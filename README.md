@@ -109,6 +109,9 @@ manager.stopService { success, message in
 manager.setMockingMode()
 ```
 
+
+---
+
 ## Run
 
 1. Select the `TJJupiterSample` scheme in Xcode.
@@ -117,6 +120,8 @@ manager.setMockingMode()
 4. Tap **시작** (Start) to launch the Jupiter service. The status, building, level, X/Y, and heading labels will update as results arrive.
 5. Tap **중지** (Stop) to halt the service.
 
+
+---
 
 ## License
 
