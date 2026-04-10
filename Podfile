@@ -1,9 +1,11 @@
 
 platform :ios, '15.0'
 
+source '<https://github.com/CocoaPods/Specs.git>'
+
 target 'TJJupiterSample' do
   use_frameworks!
-  pod 'TJJupiterSDK', :path => '/Users/leo/SwiftProjects/TJJupiterSDK' 
+  pod 'TJJupiterSDK', '2.0.0'
 
   target 'TJJupiterSampleTests' do
     inherit! :search_paths

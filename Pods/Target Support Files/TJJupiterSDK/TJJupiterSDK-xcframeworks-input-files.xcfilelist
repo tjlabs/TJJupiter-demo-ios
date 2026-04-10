@@ -1,5 +1,5 @@
 ${PODS_ROOT}/Target Support Files/TJJupiterSDK/TJJupiterSDK-xcframeworks.sh
-${PODS_ROOT}/../../TJJupiterSDK/TJJupiterSDK/Frameworks/TJLabsAuth.xcframework
-${PODS_ROOT}/../../TJJupiterSDK/TJJupiterSDK/Frameworks/TJLabsCommon.xcframework
-${PODS_ROOT}/../../TJJupiterSDK/TJJupiterSDK/Frameworks/TJLabsJupiter.xcframework
-${PODS_ROOT}/../../TJJupiterSDK/TJJupiterSDK/Frameworks/TJLabsResource.xcframework
+${PODS_ROOT}/TJJupiterSDK/TJJupiterSDK/Frameworks/TJLabsAuth.xcframework
+${PODS_ROOT}/TJJupiterSDK/TJJupiterSDK/Frameworks/TJLabsCommon.xcframework
+${PODS_ROOT}/TJJupiterSDK/TJJupiterSDK/Frameworks/TJLabsJupiter.xcframework
+${PODS_ROOT}/TJJupiterSDK/TJJupiterSDK/Frameworks/TJLabsResource.xcframework
