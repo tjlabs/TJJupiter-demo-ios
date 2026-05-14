@@ -1,11 +1,11 @@
 
-platform :ios, '15.0'
+platform :ios, '16.0'
 
 source '<https://github.com/CocoaPods/Specs.git>'
 
 target 'TJJupiterSample' do
   use_frameworks!
-  pod 'TJJupiterSDK', '2.0.0'
+  pod 'TJJupiterSDK', '2.0.1'
 
   target 'TJJupiterSampleTests' do
     inherit! :search_paths
@@ -21,7 +21,7 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
     end
   end
 end

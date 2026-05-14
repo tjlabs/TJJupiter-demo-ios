@@ -1,5 +1,5 @@
 # TJJupiterSDK
-### Version 2.0.0
+### Version 2.0.1
 
 [![Version](https://img.shields.io/cocoapods/v/TJJupiterSDK.svg?style=flat)](https://cocoapods.org/pods/TJJupiterSDK)
 [![License](https://img.shields.io/cocoapods/l/TJJupiterSDK.svg?style=flat)](https://cocoapods.org/pods/TJJupiterSDK)
@@ -25,7 +25,7 @@ It delivers real-time indoor location results, navigation routing, and movement 
 
 ## 📦 Requirements
 
-- iOS 15.0+
+- iOS 16.0+
 - Swift 5.0+
 - Info.plist
     - Privacy - Motion Usage Description
@@ -50,6 +50,11 @@ It delivers real-time indoor location results, navigation routing, and movement 
 ```ruby
 pod 'TJJupiterSDK'
 ```
+If you cannot find TJJupiterSDK in pod. Write below line in podfile.
+
+```ruby
+source '<https://github.com/CocoaPods/Specs.git>'
+```
 
 ---
 
@@ -64,7 +69,10 @@ import TJJupiterSDK
 ```
 
 ### 2. Authentication
-
+- You must obtain a token to use the SDK.
+- The link below is a guide to the token issuance process.
+- https://www.notion.so/tjlabs/SDK-Authorization-33eaef6d5b728034856ddc23489588f0?source=copy_link
+  
 ```swift
 TJJupiterAuth.shared.auth(
     accessKey: "YOUR_ACCESS_KEY",
@@ -77,19 +85,19 @@ TJJupiterAuth.shared.auth(
 ### 3. Initialize Service
 
 ```swift
-let manager = JupiterServiceManager(id: "USER_ID")
+let manager = JupiterServiceManager(
+    id: "USER_ID",
+    region: JupiterRegion.KOREA.rawValue,
+    sectorId: 123,
+    debugOption: false
+)
 manager.delegate = self
 ```
 
 ### 4. Start Service
 
 ```swift
-manager.startService(
-    region: JupiterRegion.KOREA.rawValue,
-    sectorId: 123,
-    mode: .MODE_AUTO,
-    debugOption: false
-)
+manager.startService(mode: .MODE_AUTO)
 ```
 
 ### 5. Stop Service
@@ -107,6 +115,8 @@ manager.stopService { success, message in
 ```swift
 extension ViewController: JupiterServiceManagerDelegate {
 
+    func onInitSuccess(_ isSuccess: Bool, _ code: InitErrorCode?) {}
+
     func onJupiterSuccess(_ isSuccess: Bool, _ code: JupiterErrorCode?) {}
 
     func onJupiterReport(_ code: JupiterServiceCode, _ msg: String) {}
@@ -116,6 +126,8 @@ extension ViewController: JupiterServiceManagerDelegate {
     func isJupiterInOutStateChanged(_ state: InOutState) {}
 
     func isUserGuidanceOut() {}
+
+    func isUserArrived() {}
 
     func isNavigationRouteChanged(_ routes: [(String, String, Int, Float, Float)]) {}
 
@@ -164,7 +176,7 @@ public struct Position {
 public struct LLH {
     public var lat: Double
     public var lon: Double
-    public var heading: Double
+    public var azimuth: Double
 }
 ```
 
@@ -194,11 +206,26 @@ public enum UserMode: String {
 
 ```swift
 public enum InOutState: Int {
+    case UNKNOWN = -1
     case OUT_TO_IN = 0
     case INDOOR = 1
     case IN_TO_OUT = 2
     case OUTDOOR = 3
+}
+```
+
+### InitErrorCode
+
+```swift
+public enum InitErrorCode: Int {
     case UNKNOWN = -1
+    case NOT_AUTHORIZED = 0
+    case INVALID_ID = 1
+    case INVALID_MODE = 2
+    case NETWORK_DISCONNECT = 3
+    case DUPLICATED_SERVICE = 4
+    case LOGIN_FAIL = 5
+    case CALC_INIT_FAIL = 6
 }
 ```
 
@@ -206,13 +233,14 @@ public enum InOutState: Int {
 
 ```swift
 public enum JupiterErrorCode: Int {
-    case INVALID_ID
-    case INVALID_MODE
-    case NETWORK_DISCONNECT
-    case DUPLICATED_SERVICE
-    case LOGIN_FAIL
-    case GENERATOR_FAIL
-    case CALC_INIT_FAIL
+    case UNKNOWN = -1
+    case INVALID_ID = 0
+    case INVALID_MODE = 1
+    case NETWORK_DISCONNECT = 2
+    case DUPLICATED_SERVICE = 3
+    case LOGIN_FAIL = 4
+    case GENERATOR_FAIL = 5
+    case CALC_INIT_FAIL = 6
 }
 ```
 
@@ -220,14 +248,15 @@ public enum JupiterErrorCode: Int {
 
 ```swift
 public enum JupiterServiceCode: Int {
-    case SERVICE_FAIL
-    case SERVICE_SUCCESS
-    case BECOME_BACKGROUND
-    case BECOME_FOREGROUND
-    case BLUETOOTH_UNAVAILABLE
-    case BLUETOOTH_OFF
-    case BLUETOOTH_SCAN_STOP
-    case NETWORK_DISCONNECT
+    case UNKNOWN = -1
+    case SERVICE_FAIL = 0
+    case SERVICE_SUCCESS = 1
+    case BECOME_BACKGROUND = 2
+    case BECOME_FOREGROUND = 3
+    case BLUETOOTH_UNAVAILABLE = 4
+    case BLUETOOTH_OFF = 5
+    case BLUETOOTH_SCAN_STOP = 6
+    case NETWORK_DISCONNECT = 7
 }
 ```
 
