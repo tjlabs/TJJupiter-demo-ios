@@ -12,7 +12,7 @@ Sample iOS app demonstrating the **TJJupiterSDK** for indoor positioning and nav
 - Live display of service status, building name, level, X/Y coordinates, and heading
 - TJLabs authentication via `TJJupiterAuth.shared.auth(...)`
 - Implements `JupiterServiceManagerDelegate` for result, report, and in/out-state callbacks
-- Enable mocking mode to get result out for the service area (Configured for `UserMode.MODE_VEHICLE` and sector `20`)
+- Built-in `Mock Mode` selector for testing SDK scenarios without live movement
 
 ## Requirements
 
@@ -68,17 +68,35 @@ TJJupiter-demo-ios/
 
 ## Configuration
 
-- **Auth keys.** `MainViewController.doAuth()` (`TJJupiterSample/MainViewController.swift:228`) calls `TJJupiterAuth.shared.auth(accessKey:secretAccessKey:)` with sample credentials. Replace these with your own access key / secret access key issued by TJLabs before shipping anything.
-- **Sector & user mode.** `startService()` (`TJJupiterSample/MainViewController.swift:243`) hard-codes `sectorId = 20` and `UserMode.MODE_VEHICLE`. Change these to match the venue and use case you are testing.
-- **Mocking mode.** It inables mocking mode.
+- **Auth keys.** `MainViewController.doAuth()` calls `TJJupiterAuth.shared.auth(accessKey:secretAccessKey:)` with sample credentials. Replace these with your own access key / secret access key issued by TJLabs before shipping anything.
+- **Sector & user mode.** `MainViewController` hard-codes `sectorId = 20` and `UserMode.MODE_VEHICLE`. Change these to match the venue and use case you are testing.
+- **Mock Mode.** The sample exposes a `Mock Mode` menu backed by `JupiterServiceManager.setMockMode(mode:completion:)`.
+
+## Mock Mode
+
+Use `Mock Mode` when you want the SDK to emit testable positioning results for the configured service area without relying on live movement.
+
+- The button is enabled after the service has been initialized, and it stays available while the service is running.
+- The default selection is `None`, which means no mock scenario is applied.
+- You can switch modes from the `Mock Mode` drop-down on the main screen. The status label updates after each apply attempt.
+- Available mock scenarios in this sample:
+  - `NONE`
+  - `VEHICLE_OUTDOOR_PARKING`
+  - `VEHICLE_INDOOR_OUTDOOR`
+  - `PEDESTRIAN_INDOOR_PARKING`
+  - `PEDESTRIAN_PARKING_INDOOR`
+- The current sample configuration uses `sectorId = 20` and `userMode = .MODE_VEHICLE`. If you want to test a different environment or a pedestrian-oriented flow, update those values in `MainViewController.swift` as well.
+- While a mock mode change is being applied, the button is temporarily disabled to avoid overlapping requests.
 
 ## Run
 
 1. Select the `TJJupiterSample` scheme in Xcode.
 2. Choose a device or simulator running iOS 15.0+.
 3. Build & run (`⌘R`).
-4. Tap **시작** (Start) to launch the Jupiter service. The status, building, level, X/Y, and heading labels will update as results arrive.
-5. Tap **중지** (Stop) to halt the service.
+4. Tap **초기화** (Initialize) first. After initialization succeeds, the `Mock Mode` button becomes available.
+5. Optionally choose a scenario from the `Mock Mode` menu.
+6. Tap **시작** (Start) to launch the Jupiter service. The status, building, level, X/Y, and heading labels will update as results arrive.
+7. Tap **중지** (Stop) to halt the service.
 
 ## Permissions
 
