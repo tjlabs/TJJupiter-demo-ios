@@ -2,6 +2,7 @@ import UIKit
 import TJJupiterSDK
 
 class MainViewController: UIViewController, JupiterServiceManagerDelegate {
+    
     private enum ServiceLifecycleStage {
         case authenticating
         case readyToInitialize
@@ -17,6 +18,27 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
     private let sectorId = 20
     private let debugOption = false
     private let userMode: UserMode = .MODE_VEHICLE
+    private let availableMockModes: [JupiterMockMode] = [
+        .NONE,
+        .VEHICLE_OUTDOOR_PARKING,
+        .VEHICLE_INDOOR_OUTDOOR,
+        .PEDESTRIAN_INDOOR_PARKING,
+        .PEDESTRIAN_PARKING_INDOOR
+    ]
+    
+    private var selectedMockMode: JupiterMockMode = .NONE {
+        didSet {
+            mockModeButton.setNeedsUpdateConfiguration()
+        }
+    }
+    
+    private var isApplyingMockMode = false {
+        didSet {
+            mockModeButton.setNeedsUpdateConfiguration()
+        }
+    }
+    
+    private var mockModeRequestID = 0
     
     private var lifecycleStage: ServiceLifecycleStage = .authenticating {
         didSet {
@@ -88,7 +110,7 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
         // TODO
     }
     
-    func isNavigationRouteFailed() {
+    func isNavigationRouteFailed(_ reason: TJJupiterSDK.NavigationRouteFailureReason) {
         // TODO
     }
     
@@ -146,6 +168,43 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
         button.layer.cornerRadius = 8
         button.isEnabled = false
         button.alpha = 0.5
+        return button
+    }()
+    
+    private lazy var mockModeButton: UIButton = {
+        var configuration = UIButton.Configuration.filled()
+        configuration.baseBackgroundColor = .systemGray2
+        configuration.baseForegroundColor = .white
+        configuration.cornerStyle = .medium
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16)
+        configuration.image = UIImage(systemName: "chevron.down")
+        configuration.imagePlacement = .trailing
+        configuration.imagePadding = 8
+        
+        let button = UIButton(type: .system)
+        button.configuration = configuration
+        button.showsMenuAsPrimaryAction = true
+        button.layer.cornerRadius = 8
+        button.isEnabled = false
+        button.alpha = 0.5
+        button.configurationUpdateHandler = { [weak self] actionButton in
+            guard let self, var updatedConfiguration = actionButton.configuration else { return }
+            
+            let isActive = actionButton.isEnabled || self.isApplyingMockMode
+            updatedConfiguration.title = self.isApplyingMockMode
+                ? "Mock Mode 적용 중..."
+                : "Mock Mode: \(self.displayName(for: self.selectedMockMode))"
+            updatedConfiguration.baseBackgroundColor = isActive ? UIColor.systemIndigo : UIColor.systemGray2
+            updatedConfiguration.baseForegroundColor = .white
+            updatedConfiguration.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+                var outgoing = incoming
+                outgoing.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+                return outgoing
+            }
+            
+            actionButton.configuration = updatedConfiguration
+            actionButton.alpha = isActive ? 1.0 : 0.5
+        }
         return button
     }()
     
@@ -249,11 +308,13 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
         initializeButton.addTarget(self, action: #selector(initializeTapped), for: .touchUpInside)
         startButton.addTarget(self, action: #selector(startServiceTapped), for: .touchUpInside)
         stopButton.addTarget(self, action: #selector(stopServiceTapped), for: .touchUpInside)
+        refreshMockModeMenu()
         
         view.addSubview(containerView)
         containerView.addSubview(rootStackView)
         
         rootStackView.addArrangedSubview(buttonStackView)
+        rootStackView.addArrangedSubview(mockModeButton)
         rootStackView.addArrangedSubview(infoStackView)
         
         buttonStackView.addArrangedSubview(initializeButton)
@@ -280,7 +341,8 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
             
             initializeButton.heightAnchor.constraint(equalToConstant: 52),
             startButton.heightAnchor.constraint(equalToConstant: 52),
-            stopButton.heightAnchor.constraint(equalToConstant: 52)
+            stopButton.heightAnchor.constraint(equalToConstant: 52),
+            mockModeButton.heightAnchor.constraint(equalToConstant: 52)
         ])
     }
     
@@ -308,7 +370,6 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
             debugOption: debugOption
         )
         serviceManager?.delegate = self
-        serviceManager?.setMockingMode()
     }
     
     func startService() {
@@ -319,36 +380,49 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
         serviceManager?.stopService(completion: completion)
     }
     
+    func setMockMode(mode: JupiterMockMode, completion: @escaping (Bool) -> Void) {
+        serviceManager?.setMockMode(mode: mode, completion: { isSuccess in
+            completion(isSuccess)
+        })
+    }
+    
     private func updateButtonStates() {
         switch lifecycleStage {
         case .authenticating:
             setButtonState(initializeButton, isEnabled: false, activeColor: .systemBlue)
             setButtonState(startButton, isEnabled: false, activeColor: UIColor(hex: "#E47325"))
             setButtonState(stopButton, isEnabled: false, activeColor: .systemRed)
+            setMockModeButtonState(isEnabled: false)
         case .readyToInitialize:
             setButtonState(initializeButton, isEnabled: true, activeColor: .systemBlue)
             setButtonState(startButton, isEnabled: false, activeColor: UIColor(hex: "#E47325"))
             setButtonState(stopButton, isEnabled: false, activeColor: .systemRed)
+            setMockModeButtonState(isEnabled: false)
         case .initializing:
             setButtonState(initializeButton, isEnabled: false, activeColor: .systemBlue)
             setButtonState(startButton, isEnabled: false, activeColor: UIColor(hex: "#E47325"))
             setButtonState(stopButton, isEnabled: false, activeColor: .systemRed)
+            setMockModeButtonState(isEnabled: false)
         case .initialized:
             setButtonState(initializeButton, isEnabled: false, activeColor: .systemBlue)
             setButtonState(startButton, isEnabled: true, activeColor: UIColor(hex: "#E47325"))
             setButtonState(stopButton, isEnabled: false, activeColor: .systemRed)
+            setMockModeButtonState(isEnabled: !isApplyingMockMode)
         case .starting:
             setButtonState(initializeButton, isEnabled: false, activeColor: .systemBlue)
             setButtonState(startButton, isEnabled: false, activeColor: UIColor(hex: "#E47325"))
             setButtonState(stopButton, isEnabled: false, activeColor: .systemRed)
+            setMockModeButtonState(isEnabled: false)
         case .running:
             setButtonState(initializeButton, isEnabled: false, activeColor: .systemBlue)
             setButtonState(startButton, isEnabled: false, activeColor: UIColor(hex: "#E47325"))
             setButtonState(stopButton, isEnabled: true, activeColor: .systemRed)
+            setMockModeButtonState(isEnabled: !isApplyingMockMode)
         case .stopping:
             setButtonState(initializeButton, isEnabled: false, activeColor: .systemBlue)
             setButtonState(startButton, isEnabled: false, activeColor: UIColor(hex: "#E47325"))
             setButtonState(stopButton, isEnabled: false, activeColor: .systemRed)
+            setMockModeButtonState(isEnabled: false)
         }
     }
     
@@ -356,6 +430,11 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
         button.isEnabled = isEnabled
         button.alpha = isEnabled ? 1.0 : 0.5
         button.backgroundColor = isEnabled ? activeColor : .systemGray2
+    }
+    
+    private func setMockModeButtonState(isEnabled: Bool) {
+        mockModeButton.isEnabled = isEnabled
+        mockModeButton.setNeedsUpdateConfiguration()
     }
 
     private var shouldRenderJupiterResults: Bool {
@@ -403,5 +482,64 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
                 self.serviceStatusLabel.text = "service : \(isSuccess ? "STOPPED" : "STOP FAIL")"
             }
         })
+    }
+    
+    private func refreshMockModeMenu() {
+        let actions = availableMockModes.map { mode in
+            UIAction(
+                title: displayName(for: mode),
+                state: selectedMockMode == mode ? .on : .off
+            ) { [weak self] _ in
+                self?.applyMockMode(mode)
+            }
+        }
+        
+        mockModeButton.menu = UIMenu(title: "", children: actions)
+        mockModeButton.setNeedsUpdateConfiguration()
+    }
+    
+    private func applyMockMode(_ mode: JupiterMockMode) {
+        guard lifecycleStage == .initialized || lifecycleStage == .running else {
+            return
+        }
+        
+        isApplyingMockMode = true
+        mockModeRequestID += 1
+        let requestID = mockModeRequestID
+        updateButtonStates()
+        
+        setMockMode(mode: mode) { [weak self] isSuccess in
+            DispatchQueue.main.async {
+                guard let self, self.mockModeRequestID == requestID else { return }
+                
+                self.isApplyingMockMode = false
+                if isSuccess {
+                    self.selectedMockMode = mode
+                }
+                
+                self.refreshMockModeMenu()
+                self.updateButtonStates()
+                self.serviceStatusLabel.text = isSuccess
+                    ? "service : MOCK MODE -> \(self.displayName(for: mode))"
+                    : "service : MOCK MODE APPLY FAIL"
+            }
+        }
+    }
+    
+    private func displayName(for mode: JupiterMockMode) -> String {
+        switch mode {
+        case .NONE:
+            return "None"
+        case .VEHICLE_OUTDOOR_PARKING:
+            return "Vehicle Outdoor Start"
+        case .VEHICLE_INDOOR_OUTDOOR:
+            return "Vehicle Indoor Start"
+        case .PEDESTRIAN_INDOOR_PARKING:
+            return "Pedestrian Indoor Start"
+        case .PEDESTRIAN_PARKING_INDOOR:
+            return "Pedestrian POI Start"
+        @unknown default:
+            return mode.rawValue
+        }
     }
 }
