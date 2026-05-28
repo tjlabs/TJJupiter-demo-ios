@@ -45,7 +45,7 @@ TJJupiter-demo-ios/
 1. Open `Podfile` and update line 6 so the `:path` argument points to your local SDK checkout:
 
    ```ruby
-   pod 'TJJupiterSDK', '2.0.0'
+   pod 'TJJupiterSDK', '2.0.2'
    ```
 
    if you cannot find pod, type this line above.
