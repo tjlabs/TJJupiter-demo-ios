@@ -347,7 +347,7 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
     }
     
     func doAuth() {
-        TJJupiterAuth.shared.auth(accessKey: "AK_-xVNF3MeRzQMhBIVLU5GQ", secretAccessKey: "SK1nVeBlJldifxC7z8vD8ZeercMgrSqmzNzz5RItSrDaM", completion: { [weak self] statusCode, success in
+        TJJupiterAuth.shared.auth(accessKey: "", secretAccessKey: "", completion: { [weak self] statusCode, success in
             let successRange = 200..<300
             DispatchQueue.main.async {
                 guard let self else { return }
