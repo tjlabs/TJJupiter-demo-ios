@@ -1,10 +1,10 @@
 # TJJupiter-demo-ios
 
 Sample iOS app demonstrating the **TJJupiterSDK** for indoor positioning and navigation.
-
-## Overview
-
 `TJJupiterSample` is a minimal UIKit app that shows how to integrate the TJJupiterSDK into an iOS project. It starts and stops the Jupiter location service, authenticates with TJLabs, and renders the live indoor-positioning result (building, level, X/Y, heading) on screen. The bundled run uses the SDK's simulation mode with sample sensor fixtures so you can see the pipeline working without walking through a real venue.
+
+
+---
 
 ## Features
 
@@ -14,30 +14,29 @@ Sample iOS app demonstrating the **TJJupiterSDK** for indoor positioning and nav
 - Implements `JupiterServiceManagerDelegate` for result, report, and in/out-state callbacks
 - Built-in `Mock Mode` selector for testing SDK scenarios without live movement
 
+
+---
+
 ## Requirements
 
-- Xcode 15 or newer (developed against Xcode 26.0.1)
-- iOS 15.0+ device or simulator (iPhone only)
-- Swift 5.0
-- CocoaPods 1.16+
+- iOS 15.0+
+- Swift 5.0+
+- Info.plist
+    - Privacy - Motion Usage Description
+    - Privacy - Bluetooth Peripheral Usage Description
+    - Privacy - Bluetooth Always Usage Description
+    - Privacy - Location When In Usage Description
+    - Required device capabilities
+        - item : Accelerometer
+        - item : Gyroscope
+        - item : Magnetometer
+        - item : Bluetooth Low Energy
+    - Required background modes
+        - App communicates using CoreBluetooth
+        - App registers for location updates
 
-## Project Structure
 
-```
-TJJupiter-demo-ios/
-├── TJJupiterSample/
-│   ├── AppDelegate.swift
-│   ├── SceneDelegate.swift
-│   ├── MainViewController.swift     # Main screen + SDK integration
-│   ├── UIColorExtension.swift
-│   ├── Assets.xcassets/
-│   ├── Base.lproj/
-│   └── Info.plist
-├── TJJupiterSampleTests/             # Xcode-generated scaffolding
-├── TJJupiterSampleUITests/           # Xcode-generated scaffolding
-├── Podfile
-└── TJJupiterSample.xcworkspace       # Open this, not the .xcodeproj
-```
+---
 
 ## Setup
 
@@ -66,7 +65,6 @@ TJJupiter-demo-ios/
    open TJJupiterSample.xcworkspace
    ```
 
-## Configuration
 
 - **Auth keys.** `MainViewController.doAuth()` calls `TJJupiterAuth.shared.auth(accessKey:secretAccessKey:)` with sample credentials. Replace these with your own access key / secret access key issued by TJLabs before shipping anything.
 - **Sector & user mode.** `MainViewController` hard-codes `sectorId = 20` and `UserMode.MODE_VEHICLE`. Change these to match the venue and use case you are testing.
@@ -88,7 +86,14 @@ Use `Mock Mode` when you want the SDK to emit testable positioning results for t
 - The current sample configuration uses `sectorId = 20` and `userMode = .MODE_VEHICLE`. If you want to test a different environment or a pedestrian-oriented flow, update those values in `MainViewController.swift` as well.
 - While a mock mode change is being applied, the button is temporarily disabled to avoid overlapping requests.
 
-## Run
+```swift
+TJJupiterAuth.shared.auth(
+    accessKey: "YOUR_ACCESS_KEY",
+    secretAccessKey: "YOUR_SECRET_ACCESS_KEY"
+) { code, success in
+    print("Auth:", success)
+}
+```
 
 1. Select the `TJJupiterSample` scheme in Xcode.
 2. Choose a device or simulator running iOS 15.0+.
@@ -98,19 +103,30 @@ Use `Mock Mode` when you want the SDK to emit testable positioning results for t
 6. Tap **시작** (Start) to launch the Jupiter service. The status, building, level, X/Y, and heading labels will update as results arrive.
 7. Tap **중지** (Stop) to halt the service.
 
-## Permissions
+### 3. Stop Service
 
-`TJJupiterSample/Info.plist` declares the following background modes used by the SDK:
+```swift
+manager.stopService { success, message in
+    print("Stopped:", success)
+}
+```
 
-- `bluetooth-central` — BLE scanning for indoor positioning
-- `location` — continuous location updates
+### Mocking Mode
+- Since Jupiter performs positioning based on TJLABS' BLE beacons, it cannot receive indoor location data outside of the actual service area.
+- If you use the mocking mode below, you can receive a randomly defined JupiterResult even outside the service area.
+- Use `sectorId = 20` and `UserMode.MODE_VEHICLE` in mocking mode, which corresponds to Songdo Convensia
 
-iOS will prompt for the corresponding permissions on first launch. Bluetooth and motion sensors are not available on the simulator, so for an end-to-end run you should test on a real device.
+```swift
+manager.setMockingMode()
+```
 
-## Tests
+---
 
-`TJJupiterSampleTests/` and `TJJupiterSampleUITests/` are present but currently contain only the default Xcode-generated scaffolding. There are no real assertions yet — treat them as a starting point if you want to add coverage.
+## Run
 
-## License
+1. Select the `TJJupiterSample` scheme in Xcode.
+2. Choose a device or simulator running iOS 15.0+.
+3. Build & run (`⌘R`).
+4. Tap **시작** (Start) to launch the Jupiter service. The status, building, level, X/Y, and heading labels will update as results arrive.
+5. Tap **중지** (Stop) to halt the service.
 
-No license file is included in this repository.
