@@ -106,7 +106,7 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
         // TODO
     }
     
-    func isNavigationRouteChanged(_ routes: [(String, String, Int, Float, Float)]) {
+    func isNavigationRouteChanged(_ routes: [(String, String, Float, Float)]) {
         // TODO
     }
     

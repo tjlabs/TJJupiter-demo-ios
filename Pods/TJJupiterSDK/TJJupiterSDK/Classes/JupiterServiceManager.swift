@@ -25,7 +25,6 @@ private extension NSLock {
 }
 
 public class JupiterServiceManager: NavigationManagerDelegate {
-    
     private enum ServiceState {
         case stopped
         case starting
@@ -38,7 +37,7 @@ public class JupiterServiceManager: NavigationManagerDelegate {
         case stop
     }
     
-    public static let sdkVersion = "2.0.2"
+    public static let sdkVersion = "2.0.3"
     private let lifecycleLock = NSLock()
     private var serviceState: ServiceState = .stopped
     private var activeMode: UserMode?
@@ -81,7 +80,7 @@ public class JupiterServiceManager: NavigationManagerDelegate {
         delegate?.isUserArrived()
     }
     
-    public func isNavigationRouteChanged(_ routes: [(String, String, Int, Float, Float)]) {
+    public func isNavigationRouteChanged(_ routes: [(String, String, Float, Float)]) {
         delegate?.isNavigationRouteChanged(routes)
     }
     
@@ -98,7 +97,8 @@ public class JupiterServiceManager: NavigationManagerDelegate {
     let serviceManager: JupiterNavigationServiceManaging
     public weak var delegate: JupiterServiceManagerDelegate?
     
-    public init(id: String, region: String, sectorId: Int, debugOption: Bool) {
+    public init(id: String, region: String, sectorId: Int, debugOption: Bool = true) {
+        JupiterNetworkConstants.setServerBranch(prod: true)
         let navigationManager = NavigationManager(id: id, region: region, sectorId: sectorId, debugOption: debugOption)
         self.id = id
         self.serviceManager = navigationManager
