@@ -1,4 +1,3 @@
-
 import Foundation
 import TJLabsCommon
 import TJLabsJupiter
@@ -39,12 +38,13 @@ public class JupiterServiceManager: NavigationManagerDelegate {
         case stop
     }
     
-    public static let sdkVersion = "2.0.5"
+    public static let sdkVersion = "2.0.7"
     private let lifecycleLock = NSLock()
     private var serviceState: ServiceState = .stopped
     private var activeMode: UserMode?
     private var desiredMode: UserMode?
     private var pendingStopCompletions: [(Bool, String) -> Void] = []
+    private var didSetLSEAppName = false
     
     public func onInitSuccess(_ isSuccess: Bool, _ code: TJLabsJupiter.InitErrorCode?) {
         if !isSuccess {
@@ -105,8 +105,6 @@ public class JupiterServiceManager: NavigationManagerDelegate {
         self.id = id
         self.serviceManager = navigationManager
         self.serviceManager.delegate = self
-        
-        self.serviceManager.setLSEAppName(name: "ios_jupiter_prod")
     }
     
     init(id: String, serviceManager: JupiterNavigationServiceManaging) {
@@ -200,8 +198,8 @@ public class JupiterServiceManager: NavigationManagerDelegate {
 
             serviceState = .stopped
             activeMode = nil
-
-            guard desiredMode == nil else { return [] }
+            desiredMode = nil
+            didSetLSEAppName = false
 
             let completions = pendingStopCompletions
             pendingStopCompletions.removeAll()
@@ -209,7 +207,6 @@ public class JupiterServiceManager: NavigationManagerDelegate {
         }
 
         stopCompletions.forEach { $0(true, "Service already stopped") }
-        processLifecycleIfNeeded()
     }
 
     private func handleStopCompletion(success: Bool, message: String) {
@@ -222,6 +219,7 @@ public class JupiterServiceManager: NavigationManagerDelegate {
             if success {
                 serviceState = .stopped
                 activeMode = nil
+                didSetLSEAppName = false
             } else if let activeMode {
                 serviceState = .started
                 desiredMode = activeMode
@@ -247,9 +245,14 @@ public class JupiterServiceManager: NavigationManagerDelegate {
         let action = lifecycleLock.sync {
             nextLifecycleAction()
         }
-
+        
         switch action {
         case .start(let mode):
+            if !didSetLSEAppName {
+                let appName = JupiterReplayer.shared.replayMode ? "ios_jupiter_replay" : "ios_jupiter_prod"
+                self.serviceManager.setLSEAppName(name: appName)
+                didSetLSEAppName = true
+            }
             serviceManager.startService(mode: mode.toJupiter())
         case .stop:
             serviceManager.stopService { [weak self] success, message in
