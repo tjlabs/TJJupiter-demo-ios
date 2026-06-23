@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B5AD7B1D604E77A921E001E3 /* Pods_TJJupiterSampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C82FBC1CC166E986D9C4C47C /* Pods_TJJupiterSampleTests.framework */; };
-		E70B2648D3D77EE330BDA8F3 /* Pods_TJJupiterSample_TJJupiterSampleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B854776D2C26B05EC9F35FFC /* Pods_TJJupiterSample_TJJupiterSampleUITests.framework */; };
-		F03562CA28C8961818AFD1AE /* Pods_TJJupiterSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40CF52FDA77F062D0E5C4A82 /* Pods_TJJupiterSample.framework */; };
+		3A52EC0E231F043F9CCD58ED /* Pods_TJJupiterSampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650C96F0EFDB340D4FC75BAF /* Pods_TJJupiterSampleTests.framework */; };
+		6A1E04147E660233E148034B /* Pods_TJJupiterSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9789BB48028D1AB906429FC5 /* Pods_TJJupiterSample.framework */; };
+		BBC48AFFC22C9E24DC70DA8B /* Pods_TJJupiterSample_TJJupiterSampleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8403879268E30C853690917 /* Pods_TJJupiterSample_TJJupiterSampleUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,18 +30,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		40CF52FDA77F062D0E5C4A82 /* Pods_TJJupiterSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TJJupiterSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		69C410D5E8FDB7568EC93896 /* Pods-TJJupiterSampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TJJupiterSampleTests.debug.xcconfig"; path = "Target Support Files/Pods-TJJupiterSampleTests/Pods-TJJupiterSampleTests.debug.xcconfig"; sourceTree = "<group>"; };
-		893E328D6A06B83D0683A95D /* Pods-TJJupiterSample-TJJupiterSampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TJJupiterSample-TJJupiterSampleUITests.release.xcconfig"; path = "Target Support Files/Pods-TJJupiterSample-TJJupiterSampleUITests/Pods-TJJupiterSample-TJJupiterSampleUITests.release.xcconfig"; sourceTree = "<group>"; };
-		8F3028E17A4AF5EFF5F08252 /* Pods-TJJupiterSampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TJJupiterSampleTests.release.xcconfig"; path = "Target Support Files/Pods-TJJupiterSampleTests/Pods-TJJupiterSampleTests.release.xcconfig"; sourceTree = "<group>"; };
-		A2FB411B0C5AAFBFCBD399E8 /* Pods-TJJupiterSample-TJJupiterSampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TJJupiterSample-TJJupiterSampleUITests.debug.xcconfig"; path = "Target Support Files/Pods-TJJupiterSample-TJJupiterSampleUITests/Pods-TJJupiterSample-TJJupiterSampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		1430AAAE6D355DDF5B4BA4F5 /* Pods-TJJupiterSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TJJupiterSample.release.xcconfig"; path = "Target Support Files/Pods-TJJupiterSample/Pods-TJJupiterSample.release.xcconfig"; sourceTree = "<group>"; };
+		4C7DD780380C34C856426027 /* Pods-TJJupiterSample-TJJupiterSampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TJJupiterSample-TJJupiterSampleUITests.debug.xcconfig"; path = "Target Support Files/Pods-TJJupiterSample-TJJupiterSampleUITests/Pods-TJJupiterSample-TJJupiterSampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4FE928230845F65E485B233E /* Pods-TJJupiterSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TJJupiterSample.debug.xcconfig"; path = "Target Support Files/Pods-TJJupiterSample/Pods-TJJupiterSample.debug.xcconfig"; sourceTree = "<group>"; };
+		64E01C19F4E9ECB193405DE2 /* Pods-TJJupiterSampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TJJupiterSampleTests.debug.xcconfig"; path = "Target Support Files/Pods-TJJupiterSampleTests/Pods-TJJupiterSampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		650C96F0EFDB340D4FC75BAF /* Pods_TJJupiterSampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TJJupiterSampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E0D54516EC253E1327F66F4 /* Pods-TJJupiterSample-TJJupiterSampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TJJupiterSample-TJJupiterSampleUITests.release.xcconfig"; path = "Target Support Files/Pods-TJJupiterSample-TJJupiterSampleUITests/Pods-TJJupiterSample-TJJupiterSampleUITests.release.xcconfig"; sourceTree = "<group>"; };
+		9789BB48028D1AB906429FC5 /* Pods_TJJupiterSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TJJupiterSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8403879268E30C853690917 /* Pods_TJJupiterSample_TJJupiterSampleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TJJupiterSample_TJJupiterSampleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B37969392F87B15900CFC0AB /* TJJupiterSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TJJupiterSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B379694F2F87B15A00CFC0AB /* TJJupiterSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TJJupiterSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B37969592F87B15A00CFC0AB /* TJJupiterSampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TJJupiterSampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B854776D2C26B05EC9F35FFC /* Pods_TJJupiterSample_TJJupiterSampleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TJJupiterSample_TJJupiterSampleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C82FBC1CC166E986D9C4C47C /* Pods_TJJupiterSampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TJJupiterSampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E5C065B6402BA21B5EE3D58F /* Pods-TJJupiterSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TJJupiterSample.debug.xcconfig"; path = "Target Support Files/Pods-TJJupiterSample/Pods-TJJupiterSample.debug.xcconfig"; sourceTree = "<group>"; };
-		E651EA4E2FA5A14FDEBF3039 /* Pods-TJJupiterSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TJJupiterSample.release.xcconfig"; path = "Target Support Files/Pods-TJJupiterSample/Pods-TJJupiterSample.release.xcconfig"; sourceTree = "<group>"; };
+		BF21260F39B91C3EBF227977 /* Pods-TJJupiterSampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TJJupiterSampleTests.release.xcconfig"; path = "Target Support Files/Pods-TJJupiterSampleTests/Pods-TJJupiterSampleTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -84,7 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F03562CA28C8961818AFD1AE /* Pods_TJJupiterSample.framework in Frameworks */,
+				6A1E04147E660233E148034B /* Pods_TJJupiterSample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,7 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5AD7B1D604E77A921E001E3 /* Pods_TJJupiterSampleTests.framework in Frameworks */,
+				3A52EC0E231F043F9CCD58ED /* Pods_TJJupiterSampleTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,19 +100,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E70B2648D3D77EE330BDA8F3 /* Pods_TJJupiterSample_TJJupiterSampleUITests.framework in Frameworks */,
+				BBC48AFFC22C9E24DC70DA8B /* Pods_TJJupiterSample_TJJupiterSampleUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8BBB2AC7396FF6E32739F876 /* Frameworks */ = {
+		4BCA0413383EF16B0CB8E04E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				40CF52FDA77F062D0E5C4A82 /* Pods_TJJupiterSample.framework */,
-				B854776D2C26B05EC9F35FFC /* Pods_TJJupiterSample_TJJupiterSampleUITests.framework */,
-				C82FBC1CC166E986D9C4C47C /* Pods_TJJupiterSampleTests.framework */,
+				9789BB48028D1AB906429FC5 /* Pods_TJJupiterSample.framework */,
+				A8403879268E30C853690917 /* Pods_TJJupiterSample_TJJupiterSampleUITests.framework */,
+				650C96F0EFDB340D4FC75BAF /* Pods_TJJupiterSampleTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -120,12 +120,12 @@
 		A256F1D8C67A3C69571B6508 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E5C065B6402BA21B5EE3D58F /* Pods-TJJupiterSample.debug.xcconfig */,
-				E651EA4E2FA5A14FDEBF3039 /* Pods-TJJupiterSample.release.xcconfig */,
-				A2FB411B0C5AAFBFCBD399E8 /* Pods-TJJupiterSample-TJJupiterSampleUITests.debug.xcconfig */,
-				893E328D6A06B83D0683A95D /* Pods-TJJupiterSample-TJJupiterSampleUITests.release.xcconfig */,
-				69C410D5E8FDB7568EC93896 /* Pods-TJJupiterSampleTests.debug.xcconfig */,
-				8F3028E17A4AF5EFF5F08252 /* Pods-TJJupiterSampleTests.release.xcconfig */,
+				4FE928230845F65E485B233E /* Pods-TJJupiterSample.debug.xcconfig */,
+				1430AAAE6D355DDF5B4BA4F5 /* Pods-TJJupiterSample.release.xcconfig */,
+				4C7DD780380C34C856426027 /* Pods-TJJupiterSample-TJJupiterSampleUITests.debug.xcconfig */,
+				8E0D54516EC253E1327F66F4 /* Pods-TJJupiterSample-TJJupiterSampleUITests.release.xcconfig */,
+				64E01C19F4E9ECB193405DE2 /* Pods-TJJupiterSampleTests.debug.xcconfig */,
+				BF21260F39B91C3EBF227977 /* Pods-TJJupiterSampleTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -138,7 +138,7 @@
 				B379695C2F87B15A00CFC0AB /* TJJupiterSampleUITests */,
 				B379693A2F87B15900CFC0AB /* Products */,
 				A256F1D8C67A3C69571B6508 /* Pods */,
-				8BBB2AC7396FF6E32739F876 /* Frameworks */,
+				4BCA0413383EF16B0CB8E04E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -159,11 +159,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B37969622F87B15A00CFC0AB /* Build configuration list for PBXNativeTarget "TJJupiterSample" */;
 			buildPhases = (
-				029E71FBC6586A32E7CA22C2 /* [CP] Check Pods Manifest.lock */,
+				17C9927333DE06A9BD51397E /* [CP] Check Pods Manifest.lock */,
 				B37969352F87B15900CFC0AB /* Sources */,
 				B37969362F87B15900CFC0AB /* Frameworks */,
 				B37969372F87B15900CFC0AB /* Resources */,
-				2F9C938985949EF1294275D9 /* [CP] Embed Pods Frameworks */,
+				41C2E4A0CCA7520CE217108F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -181,7 +181,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B37969672F87B15A00CFC0AB /* Build configuration list for PBXNativeTarget "TJJupiterSampleTests" */;
 			buildPhases = (
-				B4F84FD678A7119310FDD243 /* [CP] Check Pods Manifest.lock */,
+				62966B2B40F23D06D424A81B /* [CP] Check Pods Manifest.lock */,
 				B379694B2F87B15A00CFC0AB /* Sources */,
 				B379694C2F87B15A00CFC0AB /* Frameworks */,
 				B379694D2F87B15A00CFC0AB /* Resources */,
@@ -203,11 +203,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B379696A2F87B15A00CFC0AB /* Build configuration list for PBXNativeTarget "TJJupiterSampleUITests" */;
 			buildPhases = (
-				E6077A40800053FB0FE9BA1A /* [CP] Check Pods Manifest.lock */,
+				BFF817EF68DCC7913FFBEC0B /* [CP] Check Pods Manifest.lock */,
 				B37969552F87B15A00CFC0AB /* Sources */,
 				B37969562F87B15A00CFC0AB /* Frameworks */,
 				B37969572F87B15A00CFC0AB /* Resources */,
-				4D108224A3815D4372961F99 /* [CP] Embed Pods Frameworks */,
+				C9E9FEDB8B083EF14DF016BF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -291,7 +291,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		029E71FBC6586A32E7CA22C2 /* [CP] Check Pods Manifest.lock */ = {
+		17C9927333DE06A9BD51397E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -313,7 +313,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2F9C938985949EF1294275D9 /* [CP] Embed Pods Frameworks */ = {
+		41C2E4A0CCA7520CE217108F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -330,24 +330,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TJJupiterSample/Pods-TJJupiterSample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4D108224A3815D4372961F99 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TJJupiterSample-TJJupiterSampleUITests/Pods-TJJupiterSample-TJJupiterSampleUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TJJupiterSample-TJJupiterSampleUITests/Pods-TJJupiterSample-TJJupiterSampleUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TJJupiterSample-TJJupiterSampleUITests/Pods-TJJupiterSample-TJJupiterSampleUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B4F84FD678A7119310FDD243 /* [CP] Check Pods Manifest.lock */ = {
+		62966B2B40F23D06D424A81B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -369,7 +352,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E6077A40800053FB0FE9BA1A /* [CP] Check Pods Manifest.lock */ = {
+		BFF817EF68DCC7913FFBEC0B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -389,6 +372,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C9E9FEDB8B083EF14DF016BF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TJJupiterSample-TJJupiterSampleUITests/Pods-TJJupiterSample-TJJupiterSampleUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TJJupiterSample-TJJupiterSampleUITests/Pods-TJJupiterSample-TJJupiterSampleUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TJJupiterSample-TJJupiterSampleUITests/Pods-TJJupiterSample-TJJupiterSampleUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -433,7 +433,7 @@
 /* Begin XCBuildConfiguration section */
 		B37969632F87B15A00CFC0AB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E5C065B6402BA21B5EE3D58F /* Pods-TJJupiterSample.debug.xcconfig */;
+			baseConfigurationReference = 4FE928230845F65E485B233E /* Pods-TJJupiterSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -479,7 +479,7 @@
 		};
 		B37969642F87B15A00CFC0AB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E651EA4E2FA5A14FDEBF3039 /* Pods-TJJupiterSample.release.xcconfig */;
+			baseConfigurationReference = 1430AAAE6D355DDF5B4BA4F5 /* Pods-TJJupiterSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -646,7 +646,7 @@
 		};
 		B37969682F87B15A00CFC0AB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 69C410D5E8FDB7568EC93896 /* Pods-TJJupiterSampleTests.debug.xcconfig */;
+			baseConfigurationReference = 64E01C19F4E9ECB193405DE2 /* Pods-TJJupiterSampleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -669,7 +669,7 @@
 		};
 		B37969692F87B15A00CFC0AB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8F3028E17A4AF5EFF5F08252 /* Pods-TJJupiterSampleTests.release.xcconfig */;
+			baseConfigurationReference = BF21260F39B91C3EBF227977 /* Pods-TJJupiterSampleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -692,7 +692,7 @@
 		};
 		B379696B2F87B15A00CFC0AB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A2FB411B0C5AAFBFCBD399E8 /* Pods-TJJupiterSample-TJJupiterSampleUITests.debug.xcconfig */;
+			baseConfigurationReference = 4C7DD780380C34C856426027 /* Pods-TJJupiterSample-TJJupiterSampleUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -713,7 +713,7 @@
 		};
 		B379696C2F87B15A00CFC0AB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 893E328D6A06B83D0683A95D /* Pods-TJJupiterSample-TJJupiterSampleUITests.release.xcconfig */;
+			baseConfigurationReference = 8E0D54516EC253E1327F66F4 /* Pods-TJJupiterSample-TJJupiterSampleUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
