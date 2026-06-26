@@ -1,6 +1,6 @@
 import UIKit
 import TJJupiterSDK
-
+import TJLabsAuth
 class MainViewController: UIViewController, JupiterServiceManagerDelegate {
     
     private enum ServiceLifecycleStage {
