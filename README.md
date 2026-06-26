@@ -44,7 +44,7 @@ Sample iOS app demonstrating the **TJJupiterSDK** for indoor positioning and nav
 1. Open `Podfile` and update line 6 so the `:path` argument points to your local SDK checkout:
 
    ```ruby
-   pod 'TJJupiterSDK', '2.0.2'
+   pod 'TJJupiterSDK', '2.0.8'
    ```
 
    if you cannot find pod, type this line above.
