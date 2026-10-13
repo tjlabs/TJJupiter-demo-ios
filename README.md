@@ -67,8 +67,8 @@ Sample iOS app demonstrating the **TJJupiterSDK** for indoor positioning and nav
 
 
 - **Auth keys.** `MainViewController.doAuth()` calls `TJJupiterAuth.shared.auth(accessKey:secretAccessKey:)` with sample credentials. Replace these with your own access key / secret access key issued by TJLabs before shipping anything.
-- **Sector & user mode.** `MainViewController` hard-codes `sectorId = 20` and `UserMode.MODE_VEHICLE`. Change these to match the venue and use case you are testing.
-- **Mock Mode.** The sample exposes a `Mock Mode` menu backed by `JupiterServiceManager.setMockMode(mode:completion:)`.
+- **Sectors & user mode.** `MainViewController` initializes with multiple sectors (`sectorIds = [20, 112]`), starts the service on `activeSectorId = 20`, and uses `UserMode.MODE_VEHICLE`. Change these to match the venues and use case you are testing. `activeSectorId` must be one of `sectorIds`.
+- **Mock Mode.** The sample exposes a `Mock Mode` menu backed by `JupiterServiceManager.setMockMode(mode:sectorId:completion:)`, using `activeSectorId` as the mock sector.
 
 ## Mock Mode
 
@@ -83,7 +83,7 @@ Use `Mock Mode` when you want the SDK to emit testable positioning results for t
   - `VEHICLE_INDOOR_OUTDOOR`
   - `PEDESTRIAN_INDOOR_PARKING`
   - `PEDESTRIAN_PARKING_INDOOR`
-- The current sample configuration uses `sectorId = 20` and `userMode = .MODE_VEHICLE`. If you want to test a different environment or a pedestrian-oriented flow, update those values in `MainViewController.swift` as well.
+- The current sample configuration uses `activeSectorId = 20` (Songdo Convensia) as the mock sector and `userMode = .MODE_VEHICLE`. If you want to test a different environment or a pedestrian-oriented flow, update those values in `MainViewController.swift` as well.
 - While a mock mode change is being applied, the button is temporarily disabled to avoid overlapping requests.
 
 ```swift
@@ -114,10 +114,12 @@ manager.stopService { success, message in
 ### Mocking Mode
 - Since Jupiter performs positioning based on TJLABS' BLE beacons, it cannot receive indoor location data outside of the actual service area.
 - If you use the mocking mode below, you can receive a randomly defined JupiterResult even outside the service area.
-- Use `sectorId = 20` and `UserMode.MODE_VEHICLE` in mocking mode, which corresponds to Songdo Convensia
+- Pass the sector whose simulation data to use. It must be one of the sectors loaded at initialization. Sector `20` with `UserMode.MODE_VEHICLE` corresponds to Songdo Convensia.
 
 ```swift
-manager.setMockingMode()
+manager.setMockMode(mode: .VEHICLE_INDOOR_OUTDOOR, sectorId: 20) { success in
+    print("Mock mode:", success)
+}
 ```
 
 ---

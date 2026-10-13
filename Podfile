@@ -6,7 +6,7 @@ source '<https://github.com/CocoaPods/Specs.git>'
 target 'TJJupiterSample' do
   use_frameworks!
 
-  pod 'TJJupiterSDK', '2.0.17'
+  pod 'TJJupiterSDK', '2.0.20'
 
   target 'TJJupiterSampleTests' do
     inherit! :search_paths

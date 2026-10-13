@@ -4,7 +4,6 @@ import TJLabsAuth
 class MainViewController: UIViewController, JupiterServiceManagerDelegate {
     
     private enum ServiceLifecycleStage {
-        case authenticating
         case readyToInitialize
         case initializing
         case initialized
@@ -15,7 +14,13 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
     
     private let userId = "sample-test"
     private let region: JupiterRegion = .KOREA
-    private let sectorId = 20
+    // 초기화 시 sectorIds 의 리소스를 한 번에 로드하고, 서비스는 그중 activeSectorId 로 시작한다.
+    private let sectorIds: [Int]
+    private var activeSectorId: Int {
+        didSet {
+            sectorButton.setNeedsUpdateConfiguration()
+        }
+    }
     private let debugOption = false
     private let userMode: UserMode = .MODE_VEHICLE
     private let availableMockModes: [JupiterMockMode] = [
@@ -40,13 +45,24 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
     
     private var mockModeRequestID = 0
     
-    private var lifecycleStage: ServiceLifecycleStage = .authenticating {
+    private var lifecycleStage: ServiceLifecycleStage = .readyToInitialize {
         didSet {
             updateButtonStates()
         }
     }
     
     var serviceManager: JupiterServiceManager?
+    
+    init(sectorIds: [Int]) {
+        precondition(!sectorIds.isEmpty, "sectorIds must not be empty")
+        self.sectorIds = sectorIds
+        self.activeSectorId = sectorIds[0]
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     func onInitSuccess(_ isSuccess: Bool, _ code: InitErrorCode?) {
         print("(MainVC) onInitSuccess : \(isSuccess)")
@@ -208,6 +224,49 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
         return button
     }()
     
+    private lazy var sectorButton: UIButton = {
+        var configuration = UIButton.Configuration.filled()
+        configuration.baseBackgroundColor = .systemGray2
+        configuration.baseForegroundColor = .white
+        configuration.cornerStyle = .medium
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16)
+        configuration.image = UIImage(systemName: "chevron.down")
+        configuration.imagePlacement = .trailing
+        configuration.imagePadding = 8
+        
+        let button = UIButton(type: .system)
+        button.configuration = configuration
+        button.showsMenuAsPrimaryAction = true
+        button.layer.cornerRadius = 8
+        button.isEnabled = false
+        button.alpha = 0.5
+        button.configurationUpdateHandler = { [weak self] actionButton in
+            guard let self, var updatedConfiguration = actionButton.configuration else { return }
+            
+            updatedConfiguration.title = "Sector: \(self.activeSectorId)"
+            updatedConfiguration.baseBackgroundColor = actionButton.isEnabled ? UIColor.systemTeal : UIColor.systemGray2
+            updatedConfiguration.baseForegroundColor = .white
+            updatedConfiguration.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+                var outgoing = incoming
+                outgoing.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+                return outgoing
+            }
+            
+            actionButton.configuration = updatedConfiguration
+            actionButton.alpha = actionButton.isEnabled ? 1.0 : 0.5
+        }
+        return button
+    }()
+    
+    private let sectorIdsLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.textColor = .label
+        return label
+    }()
+    
     private let serviceStatusLabel: UILabel = {
         let label = UILabel()
         label.text = "NONE"
@@ -292,28 +351,40 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        serviceStatusLabel.text = "service : AUTHENTICATING"
+        serviceStatusLabel.text = "service : READY"
         updateButtonStates()
-        doAuth()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // 홈으로 돌아가면 다른 섹터 구성으로 다시 테스트할 수 있도록 서비스를 정리한다.
+        guard isMovingFromParent, let serviceManager else { return }
+        serviceManager.delegate = nil
+        serviceManager.stopService(completion: { isSuccess, msg in
+            print("(MainVC) stopService on exit : \(isSuccess) , \(msg)")
+        })
+        self.serviceManager = nil
+    }
+    
     private func setupLayout() {
         view.backgroundColor = .systemBackground
-        title = "TJJupiter Sample"
         
         initializeButton.addTarget(self, action: #selector(initializeTapped), for: .touchUpInside)
         startButton.addTarget(self, action: #selector(startServiceTapped), for: .touchUpInside)
         stopButton.addTarget(self, action: #selector(stopServiceTapped), for: .touchUpInside)
         refreshMockModeMenu()
+        refreshSectorMenu()
+        sectorIdsLabel.text = "sectorIds : \(sectorIds)"
         
         view.addSubview(containerView)
         containerView.addSubview(rootStackView)
         
         rootStackView.addArrangedSubview(buttonStackView)
+        rootStackView.addArrangedSubview(sectorButton)
         rootStackView.addArrangedSubview(mockModeButton)
         rootStackView.addArrangedSubview(infoStackView)
         
@@ -321,6 +392,7 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
         buttonStackView.addArrangedSubview(startButton)
         buttonStackView.addArrangedSubview(stopButton)
         
+        infoStackView.addArrangedSubview(sectorIdsLabel)
         infoStackView.addArrangedSubview(serviceStatusLabel)
         infoStackView.addArrangedSubview(buildingLabel)
         infoStackView.addArrangedSubview(levelLabel)
@@ -342,38 +414,27 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
             initializeButton.heightAnchor.constraint(equalToConstant: 52),
             startButton.heightAnchor.constraint(equalToConstant: 52),
             stopButton.heightAnchor.constraint(equalToConstant: 52),
+            sectorButton.heightAnchor.constraint(equalToConstant: 52),
             mockModeButton.heightAnchor.constraint(equalToConstant: 52)
         ])
-    }
-    
-    func doAuth() {
-        TJJupiterAuth.shared.auth(accessKey: "", secretAccessKey: "", completion: { [weak self] statusCode, success in
-            let successRange = 200..<300
-            DispatchQueue.main.async {
-                guard let self else { return }
-                if success, successRange.contains(statusCode) {
-                    self.lifecycleStage = .readyToInitialize
-                    self.serviceStatusLabel.text = "service : AUTHORIZED"
-                } else {
-                    self.lifecycleStage = .authenticating
-                    self.serviceStatusLabel.text = "service : AUTH FAIL (\(statusCode))"
-                }
-            }
-        })
+        
+        // 단일 섹터면 선택할 섹터가 없으므로 섹터 선택 버튼을 숨긴다.
+        sectorButton.isHidden = sectorIds.count < 2
     }
     
     func initialize() {
         serviceManager = JupiterServiceManager(
             id: userId,
             region: region.rawValue,
-            sectorId: sectorId,
+            sectorIds: sectorIds,
             debugOption: debugOption
         )
         serviceManager?.delegate = self
     }
-    
+
     func startService() {
-        serviceManager?.startService(mode: userMode)
+        serviceManager?.setReplayMode(flag: true, rfdFileName: "20_test1_rfd.json", uvdFileName: "20_test1_uvd.json", eventFileName: "20_test1_event.json")
+        serviceManager?.startService(mode: userMode, sectorId: activeSectorId)
     }
     
     func stopService(completion: @escaping (Bool, String) -> Void) {
@@ -381,18 +442,16 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
     }
     
     func setMockMode(mode: JupiterMockMode, completion: @escaping (Bool) -> Void) {
-        serviceManager?.setMockMode(mode: mode, completion: { isSuccess in
+        serviceManager?.setMockMode(mode: mode, sectorId: activeSectorId, completion: { isSuccess in
             completion(isSuccess)
         })
     }
     
     private func updateButtonStates() {
+        // 서비스 중에는 섹터를 바꿀 수 없다. 초기화 완료 후 시작 전에만 선택 가능.
+        setSectorButtonState(isEnabled: lifecycleStage == .initialized && !isApplyingMockMode)
+        
         switch lifecycleStage {
-        case .authenticating:
-            setButtonState(initializeButton, isEnabled: false, activeColor: .systemBlue)
-            setButtonState(startButton, isEnabled: false, activeColor: UIColor(hex: "#E47325"))
-            setButtonState(stopButton, isEnabled: false, activeColor: .systemRed)
-            setMockModeButtonState(isEnabled: false)
         case .readyToInitialize:
             setButtonState(initializeButton, isEnabled: true, activeColor: .systemBlue)
             setButtonState(startButton, isEnabled: false, activeColor: UIColor(hex: "#E47325"))
@@ -435,6 +494,11 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
     private func setMockModeButtonState(isEnabled: Bool) {
         mockModeButton.isEnabled = isEnabled
         mockModeButton.setNeedsUpdateConfiguration()
+    }
+    
+    private func setSectorButtonState(isEnabled: Bool) {
+        sectorButton.isEnabled = isEnabled
+        sectorButton.setNeedsUpdateConfiguration()
     }
 
     private var shouldRenderJupiterResults: Bool {
@@ -496,6 +560,27 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
         
         mockModeButton.menu = UIMenu(title: "", children: actions)
         mockModeButton.setNeedsUpdateConfiguration()
+    }
+    
+    private func refreshSectorMenu() {
+        let actions = sectorIds.map { sectorId in
+            UIAction(
+                title: "Sector \(sectorId)",
+                state: activeSectorId == sectorId ? .on : .off
+            ) { [weak self] _ in
+                self?.selectSector(sectorId)
+            }
+        }
+        
+        sectorButton.menu = UIMenu(title: "", children: actions)
+        sectorButton.setNeedsUpdateConfiguration()
+    }
+    
+    private func selectSector(_ sectorId: Int) {
+        guard lifecycleStage == .initialized, sectorId != activeSectorId else { return }
+        activeSectorId = sectorId
+        refreshSectorMenu()
+        serviceStatusLabel.text = "service : SECTOR -> \(sectorId)"
     }
     
     private func applyMockMode(_ mode: JupiterMockMode) {
