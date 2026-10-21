@@ -433,7 +433,6 @@ class MainViewController: UIViewController, JupiterServiceManagerDelegate {
     }
 
     func startService() {
-        serviceManager?.setReplayMode(flag: true, rfdFileName: "20_test1_rfd.json", uvdFileName: "20_test1_uvd.json", eventFileName: "20_test1_event.json")
         serviceManager?.startService(mode: userMode, sectorId: activeSectorId)
     }
     
